@@ -3,12 +3,15 @@ const express = require("express");
 const router = express.Router();
 const url = require("url");
 require("dotenv").config();
+const apicache = require("apicache");
 
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_KEY_VALUE = process.env.API_KEY_VALUE;
 const API_KEY_NAME = process.env.API_KEY_NAME;
 
-router.get("/", async (req, res) => {
+const cache = apicache.middleware;
+
+router.get("/", cache("1 minutes"), async (req, res) => {
   try {
     const params = new URLSearchParams({
       [API_KEY_NAME]: API_KEY_VALUE,
