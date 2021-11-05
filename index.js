@@ -12,6 +12,8 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 app.set("trust proxy", 1);
+
+app.use(express.static("WeatherApp__API/public"));
 app.use(cors());
 
 app.use("/api", require("./routes/index.js"));
